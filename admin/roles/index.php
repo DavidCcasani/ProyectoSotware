@@ -13,13 +13,10 @@ include('../../app/controllers/roles/listado_de_roles.php');
         <div class="container">
             <div class="row">
                 <h1>Roles</h1>
-
-
-
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="card card-outline card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Roles Registrados</h3>
@@ -33,7 +30,7 @@ include('../../app/controllers/roles/listado_de_roles.php');
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table class="table table-hover" border="1">
+                            <table id="example1" class="table table-striped" border="1">
                                 <thead>
                                     <tr>
                                         <th><center>Nro</center></th>
@@ -53,9 +50,9 @@ include('../../app/controllers/roles/listado_de_roles.php');
                                         <td><?= $role['nombres_rol']; ?></td>
                                         <td style ="text-align: center;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></button>
-                                                <button type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></button>
-                                                <button type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                                <a href="show.php?id=<?= $id_rol;?>" type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
+                                                <a href="edit.php?id=<?= $id_rol;?>" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
+                                                <a href="delete.php?id=<?= $id_rol;?>" type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                                             </div>
                                         </td>
 
@@ -87,3 +84,61 @@ include('../../app/controllers/roles/listado_de_roles.php');
 include('../../admin/layout/parte2.php');
 include('../../layout/mensajes.php');
 ?>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+        "pageLength": 5,
+        "language":{
+            "empatyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ roles",
+            "infoEmpty": "Mostrando 0 a 0 de 0 roles",
+            "infoFiltered": "(Filtrado de _MAX_ roles totales)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ roles",
+            "loadingRecords": "Cargando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            }
+             
+        },
+        "responsive": true, "lengthChange": true, "autoWidth": false,
+        buttons:[{
+            extend:'collection',
+            text:'Reportes',
+            orientation: 'landscape',
+            buttons:[{
+                text:'Copiar',
+                extend:'copy',
+            }, 
+                {
+                extend:'pdf',
+            }, {
+                extend:'csv',
+            }, {
+                extend:'excel',
+            }, {
+                text: 'Imprimir',
+                extend:'print'
+            }
+            ]
+        },  
+            {
+            extend:'colvis',
+            text:'Visor de Columnas',
+        
+        }
+
+        ],
+
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+  });
+</script>

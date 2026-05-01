@@ -1,7 +1,7 @@
 <?php
 include('app/config.php');
-include('layout/parte1.php');
-
+header('Location: ' . APP_URL . "/login");
+exit;
 ?>
 
 
